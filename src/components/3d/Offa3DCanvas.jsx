@@ -94,6 +94,7 @@ export const Offa3DCanvas = ({ onInteractLocation }) => {
   const currentActionRef = useRef('idle');
   const actionTimeoutRef = useRef(null);
   const isDrivingRef = useRef(false);
+  const drivingMeshRef = useRef(null); // visible keke vehicle shown when driving
 
   // Operator selection
   const [selectedOperator, setSelectedOperator] = useState(OPERATOR_ROSTER[0]);
@@ -104,6 +105,7 @@ export const Offa3DCanvas = ({ onInteractLocation }) => {
   const [nearbyEnemy, setNearbyEnemy] = useState(null);
   const [reactionMsg, setReactionMsg] = useState(null);
 
+  const [isDriving, setIsDriving] = useState(false);
   // Inputs
   const keysPressed = useRef({});
   const touchInput = useRef({ x: 0, y: 0 });
@@ -178,7 +180,35 @@ export const Offa3DCanvas = ({ onInteractLocation }) => {
     scene.add(player3D.group);
     player3DRef.current = player3D;
 
-    // 7. Animation Loop
+    // 7. Keke Marwa driving mesh (hidden until player mounts)
+    const kekeGrp = new THREE.Group();
+    const kBodyMat = new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.3, metalness: 0.4 });
+    const kBody = new THREE.Mesh(new THREE.BoxGeometry(3.4, 2.0, 1.7), kBodyMat);
+    kBody.position.y = 0.6;
+    kBody.castShadow = true;
+    kekeGrp.add(kBody);
+    // Windscreen
+    const wsMat = new THREE.MeshStandardMaterial({ color: 0x93c5fd, opacity: 0.65, transparent: true });
+    const ws = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.4), wsMat);
+    ws.position.set(-1.72, 0.7, 0); ws.rotation.y = Math.PI / 2;
+    kekeGrp.add(ws);
+    // Wheels
+    const wheelMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.9 });
+    const rimMat   = new THREE.MeshStandardMaterial({ color: 0x6b7280, metalness: 0.8 });
+    kekeGrp._wheels = [];
+    [[-1.1, -0.2, -0.85], [1.1, -0.2, -0.85], [0, -0.2, 0.85]].forEach(([wx, wy, wz]) => {
+      const wh = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.28, 12), wheelMat);
+      wh.rotation.z = Math.PI / 2; wh.position.set(wx, wy, wz);
+      kekeGrp.add(wh); kekeGrp._wheels.push(wh);
+      const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.3, 8), rimMat);
+      rim.rotation.z = Math.PI / 2; rim.position.set(wx, wy, wz);
+      kekeGrp.add(rim);
+    });
+    kekeGrp.visible = false;
+    scene.add(kekeGrp);
+    drivingMeshRef.current = kekeGrp;
+
+    // 8. Animation Loop
     let lastTime = performance.now();
 
     const animate = (now) => {
@@ -227,9 +257,32 @@ export const Offa3DCanvas = ({ onInteractLocation }) => {
         player3DRef.current.update(dt, isMoving, speed / 10.0);
       }
 
-      // Update 3D World (Nightclub lights, NPC dancers, combat enemies)
+      // Update driving vehicle mesh position & wheel spin
+      if (drivingMeshRef.current) {
+        const keke = drivingMeshRef.current;
+        const driving = isDrivingRef.current;
+        keke.visible = driving;
+        if (driving) {
+          keke.position.set(posRef.current.x, 0, posRef.current.z);
+          keke.rotation.y = rotYRef.current;
+          // Sink player into seat
+          if (player3DRef.current) player3DRef.current.group.position.y = 0.55;
+          // Spin wheels proportional to speed
+          if (keke._wheels) {
+            keke._wheels.forEach((wh) => { wh.rotation.x += speed * dt * 2.0; });
+          }
+          // Widen camera slightly for vehicle context
+          camAngleRef.current.dist = 18;
+        } else {
+          if (player3DRef.current) player3DRef.current.group.position.y = 0;
+          camAngleRef.current.dist = 13.5;
+        }
+      }
+
+      // Update 3D World (Nightclub lights, NPC patrol walks, birds, clouds)
       if (world3DRef.current) {
-        world3DRef.current.update(dt);
+        const isNightNow = world.timeOfDay === 'Night';
+        world3DRef.current.update(dt, isNightNow);
         const zone = world3DRef.current.getClosestZone(posRef.current.x, posRef.current.z);
         setNearbyZone(zone);
         const enemy = world3DRef.current.getClosestEnemy(posRef.current.x, posRef.current.z);
@@ -468,11 +521,13 @@ export const Offa3DCanvas = ({ onInteractLocation }) => {
   // 7. Mount / Drive Vehicle
   const handleToggleDrive = () => {
     sound.playClick();
-    isDrivingRef.current = !isDrivingRef.current;
-    if (isDrivingRef.current) {
+    const nowDriving = !isDrivingRef.current;
+    isDrivingRef.current = nowDriving;
+    setIsDriving(nowDriving);
+    if (nowDriving) {
       currentActionRef.current = 'drive';
-      setReactionMsg('🚗 Mounted Vehicle! Cruising along Olofa Way Expressway at high speed!');
-      addLog(`🏎️ Cruising through Offa streets in high-speed vehicle mode!`);
+      setReactionMsg('🚗 Keke Marwa Mounted! Cruising Olofa Way at high speed!');
+      addLog(`🏎️ Mounted Keke Marwa — cruising through Offa streets!`);
     } else {
       currentActionRef.current = 'idle';
       setReactionMsg('🚶 Dismounted vehicle. Walking on foot.');
@@ -724,13 +779,13 @@ export const Offa3DCanvas = ({ onInteractLocation }) => {
           <button
             onClick={handleToggleDrive}
             className={`px-3.5 py-2.5 rounded-2xl font-black text-xs shadow-xl flex items-center gap-2 transition active:scale-95 border ${
-              isDrivingRef.current
+              isDriving
                 ? 'bg-emerald-600 text-white border-emerald-300'
                 : 'bg-slate-800 text-slate-200 border-slate-700'
             }`}
           >
             <Car className="w-4 h-4 text-emerald-400" />
-            <span>{isDrivingRef.current ? 'DISMOUNT' : 'DRIVE'}</span>
+            <span>{isDriving ? 'DISMOUNT KEKE' : '🚗 DRIVE KEKE'}</span>
           </button>
 
           {/* VICTORY EMOTE */}
