@@ -1,59 +1,49 @@
 # 🍠 OFFA LIFE (Ọ̀fà Life)
-### *Ìjàkadì Lóro Ọ̀fà • Call of Duty & Free Fire Style Reality Life RPG*
+### *Ìjàkadì Lóro Ọ̀fà • Reality Life Simulator & Action RPG*
 
 [![Play Live Demo](https://img.shields.io/badge/Play_Live-GitHub_Pages-emerald?style=for-the-badge&logo=google-chrome)](https://majormarshall.github.io/offa-life/)
 
-**Offa Life** is a full 3D reality action and life-simulation RPG built with **Call of Duty & Free Fire styled human avatars**, real-time street combat, nightclub partying, vehicle driving, and authentic Nigerian culture set in **Offa, Kwara State, Nigeria**.
+**Offa Life** is an advanced reality life-simulation RPG set in the historic city of **Offa, Kwara State, Nigeria**.
 
 ---
 
-## 🔥 Call of Duty & Free Fire 3D Operative Avatars
+## 🏛️ Reality Landmark Views & Real Street Movement
 
-Select your operator in the in-game 3D Locker:
-- 🎖️ **Major Marshall (Tactical Enforcer)**: CoD-style tactical commander with Kevlar plate carrier, combat harness, tactical boots, and headset.
-- 👑 **Alaga of Popo (Free Fire Street King)**: Swagger street hero with gold chain, combat vest, cargo pants, and shades.
-- ⚡ **Moremi Shadow (Elite Spec-Ops)**: Lightning-fast urban operative with sleek carbon-fiber armor and cyber-tactical boots.
-- 🍠 **Anamo Commander (Agro-Militia Titan)**: Battle-hardened defender of Offa farmlands equipped with heavy safari camo gear.
+1. 🚶 **Direct Character Movement & Live Transit Animations**
+   - Click anywhere along the street or ground to make your avatar physically walk directly to that spot!
+   - When traveling to a landmark, watch your avatar walk down the road (*"Walking along Olofa Way towards Captain Cook..."*) with animated footsteps and road progress.
 
----
+2. 🍗 **Captain Cook Eatery & Bakery (Offa Branch)**
+   - **Front Facade View:** The iconic red and yellow Captain Cook storefront, glass entrance, delivery bikes parked on the curb, and illuminated marquee sign.
+   - **Step Inside the Restaurant:** Step through the glass doors into the dining room!
+   - **Fresh Counter Menu:** Point your cursor at the display counter and order:
+     * *Golden Beef Meat Pie* (₦900)
+     * *Crispy Fried Chicken & Chips* (₦3,200)
+     * *Captain Special Jollof Rice & Plantain* (₦2,500)
+     * *Creamy Vanilla Swirl Ice Cream* (₦1,200)
+     * *Captain Cook Jumbo Bread* (₦1,500)
+   - Watch your avatar sit, enjoy the meal, and restore hunger and energy!
 
-## 🥊 Real Combat & Fighting Engine (No Just Clicking!)
+3. 👑 **Other Authentic Reality Landmarks**
+   - **Ààfin Ọlọ́fà (Palace of the Olofa):** Grand kingdom gates, traditional guards, and royal court with the Olofa on his throne.
+   - **Ọjà Òwódé (Owode Market):** Entrance market arch, produce traders, Mama Risi's sweet potato shed, and hot Amala Buka.
+   - **Pápá Ìjàkadì (Wrestling Sand Arena):** Grand arena gates, tournament banners, and circular sand proving ring.
+   - **Avalon Hotel & VIP Nightclub:** Neon facade, illuminated checkered LED dancefloor, DJ Tunez booth, and VIP cocktail bar.
+   - **Federal Polytechnic Offa:** Mini campus entrance archway, academic tower, and tech innovation hub.
+   - **Popo Quarters (Your Home):** Front porch with humming Tiger generator, bedroom to sleep and recharge.
 
-- 💥 **Punch Combo (Jab, Cross, Hook)**: Execute high-speed 3D punches that physically hit enemies and deal damage.
-- ⚡ **Flying Kick**: Leap into the air with a Free Fire flying martial strike that staggers opponents.
-- 🛡️ **Tactical Block**: Raise arms into defensive guard stance to deflect incoming hits.
-- 🥊 **3D Street Brawlers**: Fight real street opponents in the Ijakadi arena and Adeleke streets (Razor and Titan) with floating health bars, hit sparks, knockdowns, and cash loot drops!
+4. 🎯 **Interactive Gaming Cursor & Full Direct Control**
+   - A custom glowing reticle cursor tracks your mouse/touch across the world.
+   - Dynamic hover indicators: `[🚪 STEP INSIDE]`, `[🍗 ORDER]`, `[👟 WALK HERE]`, `[👑 HOMAGE]`, `[🥊 FIGHT]`.
+   - You control every movement and decision directly on screen!
 
----
-
-## 🪩 Avalon Nightclub & VIP Lounge (Go to the Club!)
-
-- **Illuminated LED Dance Floor**: Checkered floor with pulsing pink, cyan, and gold lighting tiles.
-- **DJ Booth & Turntable**: High-power subwoofer speakers with sound systems.
-- **Sweeping Neon Spotlights**: Pink and cyan spotlights sweeping across dancers.
-- 💃 **Club Dance**: Break into Afrobeats and Amapiano dances under the lights!
-- 🥂 **Pop Bottles**: Order VIP drinks and celebrate with friends at the lounge bar!
-
----
-
-## 🚗 High-Speed Vehicle Driving
-
-- Hop onto an **Okada Motorcycle** or **TVS Keke Tricycle** and hit the expressway!
-- Fast cruising across Olofa Way with camera tracking behind and responsive controls.
-
----
-
-## 🕹️ Controls
-
-- **Movement:** `W`, `A`, `S`, `D` or `Arrow Keys` to run.
-- **Tactical Sprint:** Hold `Shift`.
-- **Combat:** Press `Space` or tap `PUNCH COMBO` / `FLYING KICK`.
-- **Orbit Camera:** Click & drag anywhere in 3D to rotate camera 360°.
-- **Mobile Controls:** Touch virtual joystick on bottom-left.
+5. 🎮 **Dual Mode Engine**
+   - **🏛️ Reality Landmark Mode:** Photorealistic architectural facades, street walking, ordering food, and interior interactions.
+   - **🎮 3D Hero Combat Mode:** Call of Duty & Free Fire style 3D operatives, street fighting combos, nightclub dancing, and vehicle driving!
 
 ---
 
-## 🚀 How to Run Locally
+## 🚀 Getting Started Locally
 
 ```bash
 # Clone the repository
@@ -69,4 +59,4 @@ npm install
 npm run dev
 ```
 
-Open **`http://localhost:5173/`** in your browser!
+Open your browser at **`http://localhost:5173/`** to play!

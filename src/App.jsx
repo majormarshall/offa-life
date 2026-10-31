@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { GameProvider, useGame } from './context/GameContext';
 import { Header } from './components/Header';
 import { StatusBars } from './components/StatusBars';
+import { RealityView } from './components/reality/RealityView';
+import { CustomCursor } from './components/reality/CustomCursor';
 import { Offa3DCanvas } from './components/3d/Offa3DCanvas';
 import { PhoneApp } from './components/PhoneApp';
 import { LocationModal } from './components/LocationModal';
@@ -21,6 +23,8 @@ import {
   Flame,
   Wheat,
   ShoppingBag,
+  Eye,
+  Box,
 } from 'lucide-react';
 
 const MainGameContent = () => {
@@ -34,11 +38,15 @@ const MainGameContent = () => {
   } = useGame();
 
   const [activeLocationDetail, setActiveLocationDetail] = useState(null);
+  const [activeMainMode, setActiveMainMode] = useState('reality'); // 'reality' | '3d-action'
 
   const currentLocation = LOCATIONS.find((l) => l.id === player.currentLocationId);
 
   return (
-    <div className="min-h-screen bg-[#070a10] text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-[#070a10] text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-white cursor-default">
+      {/* Interactive Custom Cursor */}
+      <CustomCursor />
+
       {/* Top Header */}
       <Header />
 
@@ -60,91 +68,68 @@ const MainGameContent = () => {
         {/* Top: Status Bars & Quick Character Stats */}
         <StatusBars />
 
-        {/* Quick Minigame Launcher Bar */}
-        <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>Offa Reality Tournaments & Minigames:</span>
+        {/* View Mode Switcher: Reality Landmark View vs 3D Free Fire Action View */}
+        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex flex-wrap items-center justify-between gap-3 shadow-lg">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setActiveMainMode('reality')}
+              className={`px-4 py-2 rounded-xl text-xs font-black transition flex items-center gap-2 shadow-md ${
+                activeMainMode === 'reality'
+                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-emerald-900/50'
+                  : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+              }`}
+            >
+              <Eye className="w-4 h-4 text-emerald-200" />
+              <span>🏛️ REALITY LANDMARK VIEW (Captain Cook & Front Facades)</span>
+            </button>
+
+            <button
+              onClick={() => setActiveMainMode('3d-action')}
+              className={`px-4 py-2 rounded-xl text-xs font-black transition flex items-center gap-2 shadow-md ${
+                activeMainMode === '3d-action'
+                  ? 'bg-gradient-to-r from-red-600 to-amber-600 text-white shadow-red-900/50'
+                  : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+              }`}
+            >
+              <Box className="w-4 h-4 text-amber-200" />
+              <span>🎮 3D HERO COMBAT & NIGHTCLUB VIEW (CoD / Free Fire)</span>
+            </button>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+
+          {/* Quick Minigame Buttons */}
+          <div className="flex items-center gap-1.5 overflow-x-auto">
             <button
               onClick={() => setActiveMinigame('wrestling')}
-              className="px-3 py-1.5 rounded-xl bg-amber-950/70 hover:bg-amber-900 text-amber-200 text-xs font-bold border border-amber-700/60 transition flex items-center gap-1.5 shadow-md"
+              className="px-3 py-1.5 rounded-xl bg-amber-950/70 hover:bg-amber-900 text-amber-200 text-xs font-bold border border-amber-700/60 transition flex items-center gap-1.5"
             >
               <Flame className="w-3.5 h-3.5 text-amber-400" />
-              <span>Ìjàkadì Wrestling</span>
+              <span>Ìjàkadì Arena</span>
             </button>
             <button
               onClick={() => setActiveMinigame('market')}
-              className="px-3 py-1.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900 text-emerald-200 text-xs font-bold border border-emerald-700/60 transition flex items-center gap-1.5 shadow-md"
+              className="px-3 py-1.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900 text-emerald-200 text-xs font-bold border border-emerald-700/60 transition flex items-center gap-1.5"
             >
               <ShoppingBag className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Owode Market Haggling</span>
+              <span>Owode Haggling</span>
             </button>
             <button
               onClick={() => setActiveMinigame('farm')}
-              className="px-3 py-1.5 rounded-xl bg-teal-950/70 hover:bg-teal-900 text-teal-200 text-xs font-bold border border-teal-700/60 transition flex items-center gap-1.5 shadow-md"
+              className="px-3 py-1.5 rounded-xl bg-teal-950/70 hover:bg-teal-900 text-teal-200 text-xs font-bold border border-teal-700/60 transition flex items-center gap-1.5"
             >
               <Wheat className="w-3.5 h-3.5 text-teal-400" />
-              <span>Sweet Potato Farm Harvest</span>
-            </button>
-            <button
-              onClick={() => setActiveMinigame('keke')}
-              className="px-3 py-1.5 rounded-xl bg-blue-950/70 hover:bg-blue-900 text-blue-200 text-xs font-bold border border-blue-700/60 transition flex items-center gap-1.5 shadow-md"
-            >
-              <span>🛺 Keke Rush Hustle</span>
+              <span>Farm Harvest</span>
             </button>
           </div>
         </div>
 
-        {/* 2-Column Responsive Layout: 3D Living Reality World + Nigerian Smartphone */}
+        {/* 2-Column Responsive Layout: Active Reality Viewport + Nigerian Smartphone */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          {/* Left Column: 3D Articulated Human World & Real Reaction Canvas */}
+          {/* Left Column: Reality Landmark View OR 3D Action Canvas */}
           <div className="lg:col-span-7 space-y-4">
-            <Offa3DCanvas onInteractLocation={(loc) => setActiveLocationDetail(loc)} />
-
-            {/* Current Active Station Information */}
-            {currentLocation && (
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 uppercase">
-                        Current Hub
-                      </span>
-                      <span className="text-xs font-serif italic text-amber-300">
-                        {currentLocation.yorubaName}
-                      </span>
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-extrabold text-white mt-1">
-                      {currentLocation.name}
-                    </h3>
-                    <p className="text-xs text-slate-300 mt-1 line-clamp-2">
-                      {currentLocation.description}
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => setActiveLocationDetail(currentLocation)}
-                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-lg transition flex items-center gap-2"
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    <span>Explore Hustles Here</span>
-                  </button>
-                </div>
-
-                {/* Quick actions row */}
-                <div className="mt-3.5 pt-3 border-t border-slate-800/80 flex flex-wrap gap-2">
-                  {currentLocation.availableActions?.slice(0, 3).map((act) => (
-                    <button
-                      key={act.id}
-                      onClick={() => setActiveLocationDetail(currentLocation)}
-                      className="text-xs px-3 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-200 transition font-medium"
-                    >
-                      {act.name}
-                    </button>
-                  ))}
-                </div>
-              </div>
+            {activeMainMode === 'reality' ? (
+              <RealityView onOpenMinigame={(gameType) => setActiveMinigame(gameType)} />
+            ) : (
+              <Offa3DCanvas onInteractLocation={(loc) => setActiveLocationDetail(loc)} />
             )}
           </div>
 
@@ -179,7 +164,7 @@ const MainGameContent = () => {
           Offa Life Simulator • Built with reverence for the heritage of Offa Kingdom
         </p>
         <p className="text-[11px] text-slate-500">
-          "Ìjàkadì Lóro Ọ̀fà" • "Ọ̀fà lo l'ánamọ́" • Powered by 3D Articulated Human Reality Engine
+          "Ìjàkadì Lóro Ọ̀fà" • "Ọ̀fà lo l'ánamọ́" • Powered by Offa Reality Landmark & 3D Action Engine
         </p>
         <p className="text-[10px] text-emerald-400/80">
           Repository:{' '}
