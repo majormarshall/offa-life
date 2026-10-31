@@ -1,69 +1,56 @@
 # 🍠 OFFA LIFE (Ọ̀fà Life)
-### *Ìjàkadì Lóro Ọ̀fà • The Advanced Nigerian Life Simulator*
+### *Ìjàkadì Lóro Ọ̀fà • The Advanced Nigerian Reality Life Simulator*
 
-[![Deploy to GitHub Pages](https://github.com/majormarshall/offa-life/actions/workflows/deploy.yml/badge.svg)](https://github.com/majormarshall/offa-life/actions/workflows/deploy.yml)
 [![Live Demo](https://img.shields.io/badge/Play_Live-GitHub_Pages-emerald?style=for-the-badge&logo=google-chrome)](https://majormarshall.github.io/offa-life/)
 
-**Offa Life** is a rich, responsive life-simulation RPG inspired by *Lagos Life* and elevated with high-definition satellite GIS mapping, deep cultural authenticity, economic realism, and everyday Nigerian experiences set in the historic city of **Offa, Kwara State, Nigeria**.
+**Offa Life** is an animated, living-world reality simulation RPG inspired by *Lagos Life* and elevated with interactive city navigation, moving citizens, autonomous traffic, and everyday Nigerian experiences set in the historic city of **Offa, Kwara State, Nigeria**.
 
 ---
 
-## 🌟 What Makes Offa Life Advanced?
+## 🌟 Real-Life Visual Town Simulation
 
-While *Lagos Life* brought the bustle of the metropolis to web browsers, **Offa Life** takes simulation further by grounding gameplay in real geographical coordinates, satellite imagery, and indigenous Yoruba heritage:
+Unlike static maps, **Offa Life** places you right on the streets of Offa in a vibrant, living 2D town world:
 
-1. 🛰️ **Interactive High-Resolution Satellite & GIS Map**
-   - Centered directly on Offa coordinates (`8.1393° N, 4.7174° E`).
-   - Switch between **Esri World Imagery High-Res Satellite**, **OpenStreetMap Standard**, and **Tactical Hybrid Modes**.
-   - Live reconnaissance HUD displaying coordinates, altitude, sector tracking, and real-time station beacons.
-   - Fast-travel across Offa via **Trekking on Foot**, **Bajaj Okada**, **TVS Keke Marwa**, or **Tokunbo Toyota Corolla / G-Wagon**.
+1. 🚶 **Live Animated World with Moving Citizens & Traffic**
+   - **Control Your Avatar:** Walk freely through the streets of Offa using **WASD**, **Arrow keys**, **Click/Tap-to-Move**, or the **Mobile Virtual D-Pad / Joystick**.
+   - **Living Pedestrians:** Watch market mamas balancing produce trays, FedPoly students rushing to lectures, palace elders in Agbada, and stray Kwara goats roaming the curbs.
+   - **Interactive NPC Speech:** Passersby talk in real time with speech bubbles (*"Offa lo l'anamo!"*, *"Customer, buy fresh sweet potato!"*, *"Up NEPA!"*, *"Bawo ni!"*, *"Ijakadi loro Offa!"*).
+   - **Street Traffic:** Keke Marwa (green tricycles) and Bajaj Okada motorcycles cruising along Olofa Way, Adeleke, and Popo roads.
 
-2. 🤼 **"Ìjàkadì Lóro Ọ̀fà" Traditional Martial Arts Arena**
-   - Full interactive sand-ring wrestling minigame with real Yoruba combat moves: *Leg Sweep (Fá ẹsẹ̀)*, *Bear Grapple (Gbá mọ́lẹ̀)*, *Dodge & Evade (Yẹra)*, and *Power Slam (Gbé sọlẹ̀)*.
+2. 🏛️ **Walk Up & Enter Real Offa Landmarks**
+   - **Ààfin Ọlọ́fà (Palace of the Olofa):** Royal gates, traditional guards, royal court blessings, and chieftaincy rites.
+   - **Ọjà Òwódé (Owode Central Market):** Stalls of sweet potatoes, textiles, provisions, and market haggling minigames.
+   - **Federal Polytechnic Offa (Mini Campus):** Campus gates, lecture theatres, tech innovation hubs.
+   - **Historic Offa Railway Station (NRC):** Colonial railway tracks, freight cargo loading, train tours.
+   - **Pápá Ìjàkadì (Wrestling Arena):** Sacred sand ring where traditional wrestlers spar.
+   - **Ojoku Road Farmlands:** Lush green sweet potato ridges.
+   - **Avalon Hotel & Lounge:** Sparkling swimming pool and VIP executive meetings.
+   - **Your Residential House (Popo Quarters):** Sleep to recharge, run the generator, install solar.
+
+3. 🤼 **"Ìjàkadì Lóro Ọ̀fà" Traditional Martial Arts Arena**
+   - Interactive sand-ring wrestling with Yoruba combat moves: *Leg Sweep (Fá ẹsẹ̀)*, *Bear Grapple (Gbá mọ́lẹ̀)*, *Dodge & Evade (Yẹra)*, and *Power Slam (Gbé sọlẹ̀)*.
    - Live procedural talking drums (*Gàngan*) reacting to your stamina, balance, and victory takedowns.
 
-3. 🍠 **"Ọ̀fà Lo L’ánamọ́" — Sweet Potato Agricultural Empire**
+4. 🍠 **"Ọ̀fà Lo L’ánamọ́" — Sweet Potato Farm Harvest**
    - Cultivate, irrigate, and harvest legendary Orange Flesh and Golden Sweet Potatoes along Ojoku Road.
    - Minigame harvest mechanic where high-yield crops translate into wholesale market profit.
 
-4. 🏪 **Owode Central Market Haggling Minigame**
+5. 🏪 **Owode Central Market Haggling Minigame**
    - Test your bargaining skills against iconic Nigerian market mamas (*Mama Risi*).
-   - Use dynamic dialogue tactics (*"Customer daada ni mi!"*, *"Let me check Baba Sikiru stall"*, *"E ku ewa!"*) with real-time vendor patience meters to unlock sweet resale margins.
+   - Use dynamic dialogue tactics (*"Customer daada ni mi!"*, *"Let me check Baba Sikiru stall"*, *"E ku ewa!"*) with real-time vendor patience meters.
 
-5. ⚡ **Authentic Nigerian Reality Simulator**
-   - **NEPA / Blackout Cycles:** Experience sudden power cuts with the classic "poof" sound.
-   - **Power Independence Progression:** Upgrade from noisy "I Better Pass My Neighbor" Tiger generators to Sumec Firman sets, 3.5kVA Inverters, and zero-fuel 10kVA off-grid Solar farms!
-   - **Random Events:** Owambe Saturday spraying, FedPoly SUG tech demonstrations, NURTW Agbero checkpoints, and Olofa Palace royal audiences.
-
-6. 📱 **OffaHub Smart Device FinTech & Lifestyle Portal**
-   - **OlofaPay Bank:** Virtual debit card, daily compound interest, ATM / POS agent cash withdrawals and deposits.
-   - **Career Ladder:** Multi-tier professional growth across 5 career tracks (Agribusiness, Owode Merchant, FedPoly Tech & Academia, Transport Syndicate, and Royal Chieftaincy).
-   - **Offa Delicacies:** Roasted Anamo with peppery palm oil sauce, Amala with Ewedu, Gbegiri and Ogunfe (goat meat), Pounded Yam with Egusi, and chilled spiced Zobo.
-   - **Real Estate:** From single "Face-me-I-face-you" rooms in Popo to luxury 4-bedroom duplexes in Offa GRA and Royal Estates near Aafin Olofa.
+6. ⚡ **Authentic Nigerian Reality Simulator**
+   - **NEPA / Blackout Cycles:** Sudden power cuts with the classic "poof" sound.
+   - **Power Independence Progression:** Tiger generator ("I Better Pass My Neighbor"), Sumec Firman, 3.5kVA Inverter, and 10kVA off-grid Solar farms!
+   - **OlofaPay Smartphone:** Virtual debit card, ATM/POS cash deposits/withdrawals, career ladders, and real estate acquisition.
 
 ---
 
-## 🗺️ Historic Landmarks Featured
+## 🕹️ Controls
 
-- 👑 **Aafin Olofa (Palace of the Olofa of Offa)** — Center of the kingdom, royal court, and chieftaincy honors.
-- 🏪 **Owode Central Market** — Kwara South's largest commodity and Aso-Oke trading hub.
-- 🎓 **Federal Polytechnic Offa (Mini Campus & Perm Site)** — Student life, technical lectures, and tech innovation hubs.
-- 🚂 **Historic Offa Railway Station (NRC)** — Colonial-era terminus linking North and South Nigeria.
-- 👸 **Queen Moremi Ajasoro Memorial & Park** — Shrine honoring the legendary Yoruba heroine of courage.
-- 🏫 **Offa Grammar School (OGS) & Adesoye College** — Pioneer institutions of communal excellence.
-- 🏨 **Avalon Hotel & Executive Lounge** — Luxury VIP relaxation and networking.
-- 🤼 **Ijakadi Wrestling Sand Arena** — The sacred proving ground.
-- 🕌 **Offa Central Mosque & Cathedral of St. Mark** — Pillars of interfaith peace.
-
----
-
-## 🕹️ Tech Stack
-
-- **Framework:** React 19 + Vite 8
-- **Styling:** Tailwind CSS v4 + Lucide Icons + Glassmorphism UI
-- **GIS Mapping:** Leaflet 1.9 + Esri World Imagery Satellite Tiles + CartoDB
-- **Audio:** Custom procedural Web Audio API synthesizer (Zero external asset dependencies — 100% offline ready)
-- **Effects:** Canvas Confetti animations
+- **Desktop Keyboard:** `W`, `A`, `S`, `D` or `Arrow Keys` to walk. `Shift` to sprint. `E` or `Enter` to enter buildings.
+- **Mouse / Touch:** Tap anywhere on the ground to walk. Tap any building to walk and interact.
+- **Mobile Touch Joystick:** On-screen virtual D-Pad for 360° street navigation.
 
 ---
 
@@ -84,12 +71,6 @@ npm run dev
 ```
 
 Open your browser at `http://localhost:5173/` to play!
-
-To build for production:
-```bash
-npm run build
-npm run preview
-```
 
 ---
 

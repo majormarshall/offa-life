@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GameProvider, useGame } from './context/GameContext';
 import { Header } from './components/Header';
 import { StatusBars } from './components/StatusBars';
-import { SatelliteMap } from './components/SatelliteMap';
+import { LivingWorldGame } from './components/LivingWorldGame';
 import { PhoneApp } from './components/PhoneApp';
 import { LocationModal } from './components/LocationModal';
 import { EventModal } from './components/EventModal';
@@ -64,53 +64,53 @@ const MainGameContent = () => {
         <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2.5">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
             <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>Offa Town Minigames:</span>
+            <span>Offa Reality Hustles & Tournaments:</span>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setActiveMinigame('wrestling')}
-              className="px-3 py-1.5 rounded-xl bg-amber-950/70 hover:bg-amber-900 text-amber-200 text-xs font-bold border border-amber-700/60 transition flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-xl bg-amber-950/70 hover:bg-amber-900 text-amber-200 text-xs font-bold border border-amber-700/60 transition flex items-center gap-1.5 shadow-md"
             >
               <Flame className="w-3.5 h-3.5 text-amber-400" />
               <span>Ìjàkadì Wrestling</span>
             </button>
             <button
               onClick={() => setActiveMinigame('market')}
-              className="px-3 py-1.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900 text-emerald-200 text-xs font-bold border border-emerald-700/60 transition flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-xl bg-emerald-950/70 hover:bg-emerald-900 text-emerald-200 text-xs font-bold border border-emerald-700/60 transition flex items-center gap-1.5 shadow-md"
             >
               <ShoppingBag className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Owode Haggling</span>
+              <span>Owode Market Haggling</span>
             </button>
             <button
               onClick={() => setActiveMinigame('farm')}
-              className="px-3 py-1.5 rounded-xl bg-teal-950/70 hover:bg-teal-900 text-teal-200 text-xs font-bold border border-teal-700/60 transition flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-xl bg-teal-950/70 hover:bg-teal-900 text-teal-200 text-xs font-bold border border-teal-700/60 transition flex items-center gap-1.5 shadow-md"
             >
               <Wheat className="w-3.5 h-3.5 text-teal-400" />
-              <span>Sweet Potato Harvest</span>
+              <span>Sweet Potato Farm Harvest</span>
             </button>
             <button
               onClick={() => setActiveMinigame('keke')}
-              className="px-3 py-1.5 rounded-xl bg-blue-950/70 hover:bg-blue-900 text-blue-200 text-xs font-bold border border-blue-700/60 transition flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-xl bg-blue-950/70 hover:bg-blue-900 text-blue-200 text-xs font-bold border border-blue-700/60 transition flex items-center gap-1.5 shadow-md"
             >
-              <span>🛺 Keke Hustle</span>
+              <span>🛺 Keke Rush Hustle</span>
             </button>
           </div>
         </div>
 
-        {/* 2-Column Responsive Layout: Satellite Map + Smart Phone App */}
+        {/* 2-Column Responsive Layout: Living Reality World + Nigerian Smartphone */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          {/* Left Column: Interactive Satellite Map & Current Station Hub */}
+          {/* Left Column: Live Animated Offa Reality Engine */}
           <div className="lg:col-span-7 space-y-4">
-            <SatelliteMap onSelectLocation={(loc) => setActiveLocationDetail(loc)} />
+            <LivingWorldGame onInteractLocation={(loc) => setActiveLocationDetail(loc)} />
 
-            {/* Current Station Detail Card */}
+            {/* Current Active Station Information */}
             {currentLocation && (
               <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 shadow-xl">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 uppercase">
-                        Active Station
+                        Current Hub
                       </span>
                       <span className="text-xs font-serif italic text-amber-300">
                         {currentLocation.yorubaName}
@@ -128,7 +128,7 @@ const MainGameContent = () => {
                     className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs shadow-lg transition flex items-center gap-2"
                   >
                     <Sparkles className="w-4 h-4" />
-                    <span>View All Hustles Here</span>
+                    <span>Explore Hustles Here</span>
                   </button>
                 </div>
 
@@ -148,7 +148,7 @@ const MainGameContent = () => {
             )}
           </div>
 
-          {/* Right Column: Nigerian Smartphone (FinTech, Hustles, Eats, Properties, Trophies) */}
+          {/* Right Column: Nigerian Smartphone (FinTech, Career, Eats, Estates, Trophies) */}
           <div className="lg:col-span-5">
             <PhoneApp />
           </div>
@@ -179,10 +179,18 @@ const MainGameContent = () => {
           Offa Life Simulator • Built with reverence for the heritage of Offa Kingdom
         </p>
         <p className="text-[11px] text-slate-500">
-          "Ìjàkadì Lóro Ọ̀fà" • "Ọ̀fà lo l'ánamọ́" • Powered by High-Resolution Satellite & OpenStreetMap GIS
+          "Ìjàkadì Lóro Ọ̀fà" • "Ọ̀fà lo l'ánamọ́" • Powered by Live Reality Simulation Engine
         </p>
         <p className="text-[10px] text-emerald-400/80">
-          Repository: <a href="https://github.com/majormarshall/offa-life.git" className="underline hover:text-emerald-300" target="_blank" rel="noreferrer">majormarshall/offa-life</a>
+          Repository:{' '}
+          <a
+            href="https://github.com/majormarshall/offa-life.git"
+            className="underline hover:text-emerald-300"
+            target="_blank"
+            rel="noreferrer"
+          >
+            majormarshall/offa-life
+          </a>
         </p>
       </footer>
 
