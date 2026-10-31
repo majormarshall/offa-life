@@ -1,56 +1,50 @@
 # 🍠 OFFA LIFE (Ọ̀fà Life)
-### *Ìjàkadì Lóro Ọ̀fà • The Advanced Nigerian Reality Life Simulator*
+### *Ìjàkadì Lóro Ọ̀fà • The 3D Human Reality Life Simulator*
 
-[![Live Demo](https://img.shields.io/badge/Play_Live-GitHub_Pages-emerald?style=for-the-badge&logo=google-chrome)](https://majormarshall.github.io/offa-life/)
+[![Play Live Demo](https://img.shields.io/badge/Play_Live-GitHub_Pages-emerald?style=for-the-badge&logo=google-chrome)](https://majormarshall.github.io/offa-life/)
 
-**Offa Life** is an animated, living-world reality simulation RPG inspired by *Lagos Life* and elevated with interactive city navigation, moving citizens, autonomous traffic, and everyday Nigerian experiences set in the historic city of **Offa, Kwara State, Nigeria**.
+**Offa Life** is an articulated 3D human reality life-simulation RPG set in the historic city of **Offa, Kwara State, Nigeria**.
 
 ---
 
-## 🌟 Real-Life Visual Town Simulation
+## 🌟 Real 3D Human Characters & Physical Reactions
 
-Unlike static maps, **Offa Life** places you right on the streets of Offa in a vibrant, living 2D town world:
+Every action triggers an authentic, observable 3D physical animation and world reaction:
 
-1. 🚶 **Live Animated World with Moving Citizens & Traffic**
-   - **Control Your Avatar:** Walk freely through the streets of Offa using **WASD**, **Arrow keys**, **Click/Tap-to-Move**, or the **Mobile Virtual D-Pad / Joystick**.
-   - **Living Pedestrians:** Watch market mamas balancing produce trays, FedPoly students rushing to lectures, palace elders in Agbada, and stray Kwara goats roaming the curbs.
-   - **Interactive NPC Speech:** Passersby talk in real time with speech bubbles (*"Offa lo l'anamo!"*, *"Customer, buy fresh sweet potato!"*, *"Up NEPA!"*, *"Bawo ni!"*, *"Ijakadi loro Offa!"*).
-   - **Street Traffic:** Keke Marwa (green tricycles) and Bajaj Okada motorcycles cruising along Olofa Way, Adeleke, and Popo roads.
+1. 🚶 **Articulated 3D Human Characters**
+   - Head, neck, facial eyes, traditional Yoruba cap (*Fìlà*), torso wearing buba attire, articulated arms, hands, pelvis, thighs, knees, and feet with sneakers.
+   - Natural pendulum walk cycle, running strides, head tilting, and idle breathing.
+   - Third-person 3D camera that smoothly trails your character with mouse/touch orbit rotation and zoom!
 
-2. 🏛️ **Walk Up & Enter Real Offa Landmarks**
-   - **Ààfin Ọlọ́fà (Palace of the Olofa):** Royal gates, traditional guards, royal court blessings, and chieftaincy rites.
-   - **Ọjà Òwódé (Owode Central Market):** Stalls of sweet potatoes, textiles, provisions, and market haggling minigames.
-   - **Federal Polytechnic Offa (Mini Campus):** Campus gates, lecture theatres, tech innovation hubs.
-   - **Historic Offa Railway Station (NRC):** Colonial railway tracks, freight cargo loading, train tours.
-   - **Pápá Ìjàkadì (Wrestling Arena):** Sacred sand ring where traditional wrestlers spar.
-   - **Ojoku Road Farmlands:** Lush green sweet potato ridges.
-   - **Avalon Hotel & Lounge:** Sparkling swimming pool and VIP executive meetings.
-   - **Your Residential House (Popo Quarters):** Sleep to recharge, run the generator, install solar.
+2. 💥 **Real Physical Reactions to Every Action (No Just Clicking!)**
+   - 🍠 **Eat Roasted Anamo**: Character physically raises food to mouth, chews with nodding head, crumb particles pop, and `+35 Hunger` floats up with a happy sigh!
+   - 🌾 **Harvest Sweet Potatoes**: Character bends at the waist, swings a farming hoe into the 3D ground, earth particles fly up, and a golden sweet potato pops up into their hands (+₦12,000)!
+   - 👑 **Royal Homage (Ìdọ̀bálẹ̀)**: Character drops flat to the earth in traditional Yoruba royal prostration before the Olofa of Offa, receiving glowing royal blessing particles and `+20 Respect`!
+   - 🤼 **Ijakadi Combat Drills**: Character drops into a deep martial arts stance, sparring with punches and leg sweeps in the 3D sand ring.
+   - 💃 **Owambe Celebration Dance**: Character dances ("Gbe body e") with flying Naira notes spraying into the 3D air!
+   - 💤 **Sleep & Recharge**: Character reclines horizontally with floating `Zzz` particles, transitioning day/night cycles to wake up 100% refreshed!
 
-3. 🤼 **"Ìjàkadì Lóro Ọ̀fà" Traditional Martial Arts Arena**
-   - Interactive sand-ring wrestling with Yoruba combat moves: *Leg Sweep (Fá ẹsẹ̀)*, *Bear Grapple (Gbá mọ́lẹ̀)*, *Dodge & Evade (Yẹra)*, and *Power Slam (Gbé sọlẹ̀)*.
-   - Live procedural talking drums (*Gàngan*) reacting to your stamina, balance, and victory takedowns.
+3. 🏛️ **Walk into 3D Landmarks of Offa**
+   - 👑 **Ààfin Ọlọ́fà (The Royal Palace)** with courtyard arches, royal columns, and traditional guards.
+   - 🏪 **Ọjà Òwódé (Owode Market)** with colorful canopy umbrellas and heaps of fresh sweet potatoes (*Anamo Offa*).
+   - 🎓 **Federal Polytechnic Offa** with clock tower and lecture halls.
+   - 🤼 **Pápá Ìjàkadì (Wrestling Arena)** with circular sand ring and spectator benches.
+   - 🚂 **Offa Railway Station (NRC)** with rail lines and cargo freight platforms.
+   - 🏡 **Your Popo Home** with active Tiger generator humming outside.
+   - 🏨 **Avalon Hotel** with luxury pool and sun loungers.
+   - 🍠 **Ojoku Road Farmlands** with terraced sweet potato ridges.
 
-4. 🍠 **"Ọ̀fà Lo L’ánamọ́" — Sweet Potato Farm Harvest**
-   - Cultivate, irrigate, and harvest legendary Orange Flesh and Golden Sweet Potatoes along Ojoku Road.
-   - Minigame harvest mechanic where high-yield crops translate into wholesale market profit.
-
-5. 🏪 **Owode Central Market Haggling Minigame**
-   - Test your bargaining skills against iconic Nigerian market mamas (*Mama Risi*).
-   - Use dynamic dialogue tactics (*"Customer daada ni mi!"*, *"Let me check Baba Sikiru stall"*, *"E ku ewa!"*) with real-time vendor patience meters.
-
-6. ⚡ **Authentic Nigerian Reality Simulator**
-   - **NEPA / Blackout Cycles:** Sudden power cuts with the classic "poof" sound.
-   - **Power Independence Progression:** Tiger generator ("I Better Pass My Neighbor"), Sumec Firman, 3.5kVA Inverter, and 10kVA off-grid Solar farms!
-   - **OlofaPay Smartphone:** Virtual debit card, ATM/POS cash deposits/withdrawals, career ladders, and real estate acquisition.
+4. 🚶 **Living 3D NPCs & Traffic**
+   - Mama Risi, FedPoly scholars, palace guards, and Ijakadi wrestlers walking between waypoints.
+   - 3D vehicles cruising on asphalt roads.
 
 ---
 
 ## 🕹️ Controls
 
-- **Desktop Keyboard:** `W`, `A`, `S`, `D` or `Arrow Keys` to walk. `Shift` to sprint. `E` or `Enter` to enter buildings.
-- **Mouse / Touch:** Tap anywhere on the ground to walk. Tap any building to walk and interact.
-- **Mobile Touch Joystick:** On-screen virtual D-Pad for 360° street navigation.
+- **Desktop Keyboard:** `W`, `A`, `S`, `D` or `Arrow Keys` to walk in 3D. `Shift` to sprint. `E` or `Enter` to enter buildings.
+- **Mouse Drag:** Click & drag anywhere in the 3D view to rotate/orbit camera around your character.
+- **Mobile Touch Joystick:** On-screen virtual D-Pad for 360° walking on phones.
 
 ---
 
@@ -71,8 +65,3 @@ npm run dev
 ```
 
 Open your browser at `http://localhost:5173/` to play!
-
----
-
-## 📜 Cultural Heritage Slogan
-> *"Ọ̀fà mọ̀kún Ọlọ́fà gbon-in! Ìjàkadì Lóro Ọ̀fà!"*

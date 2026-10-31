@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GameProvider, useGame } from './context/GameContext';
 import { Header } from './components/Header';
 import { StatusBars } from './components/StatusBars';
-import { LivingWorldGame } from './components/LivingWorldGame';
+import { Offa3DCanvas } from './components/3d/Offa3DCanvas';
 import { PhoneApp } from './components/PhoneApp';
 import { LocationModal } from './components/LocationModal';
 import { EventModal } from './components/EventModal';
@@ -64,7 +64,7 @@ const MainGameContent = () => {
         <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-2.5">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
             <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>Offa Reality Hustles & Tournaments:</span>
+            <span>Offa Reality Tournaments & Minigames:</span>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button
@@ -97,11 +97,11 @@ const MainGameContent = () => {
           </div>
         </div>
 
-        {/* 2-Column Responsive Layout: Living Reality World + Nigerian Smartphone */}
+        {/* 2-Column Responsive Layout: 3D Living Reality World + Nigerian Smartphone */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          {/* Left Column: Live Animated Offa Reality Engine */}
+          {/* Left Column: 3D Articulated Human World & Real Reaction Canvas */}
           <div className="lg:col-span-7 space-y-4">
-            <LivingWorldGame onInteractLocation={(loc) => setActiveLocationDetail(loc)} />
+            <Offa3DCanvas onInteractLocation={(loc) => setActiveLocationDetail(loc)} />
 
             {/* Current Active Station Information */}
             {currentLocation && (
@@ -179,7 +179,7 @@ const MainGameContent = () => {
           Offa Life Simulator • Built with reverence for the heritage of Offa Kingdom
         </p>
         <p className="text-[11px] text-slate-500">
-          "Ìjàkadì Lóro Ọ̀fà" • "Ọ̀fà lo l'ánamọ́" • Powered by Live Reality Simulation Engine
+          "Ìjàkadì Lóro Ọ̀fà" • "Ọ̀fà lo l'ánamọ́" • Powered by 3D Articulated Human Reality Engine
         </p>
         <p className="text-[10px] text-emerald-400/80">
           Repository:{' '}
