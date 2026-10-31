@@ -6,29 +6,37 @@ export class World3D {
     this.scene = scene;
     this.buildings = [];
     this.npcs = [];
-    this.vehicles = [];
-    this.streetLights = [];
+    this.enemies = [];
     this.interactiveZones = [];
+    this.discoTiles = [];
+    this.spotlights = [];
 
     this.buildTerrain();
     this.buildRoads();
     this.buildBuildings();
+    this.buildNightclub();
     this.buildFlora();
-    this.spawnNPCs();
+    this.spawnNPCsAndEnemies();
+    this.spawnVehicles();
   }
 
   buildTerrain() {
-    // Large ground plane
-    const groundGeo = new THREE.PlaneGeometry(160, 160);
-    const groundMat = new THREE.MeshLambertMaterial({ color: 0x1e293b }); // foundation
+    const groundGeo = new THREE.PlaneGeometry(180, 180);
+    const groundMat = new THREE.MeshStandardMaterial({
+      color: 0x111827,
+      roughness: 0.9,
+    });
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.rotation.x = -Math.PI / 2;
     ground.receiveShadow = true;
     this.scene.add(ground);
 
-    // Green grass fields
-    const grassGeo = new THREE.PlaneGeometry(150, 150);
-    const grassMat = new THREE.MeshLambertMaterial({ color: 0x15803d });
+    // Green verges & urban courtyards
+    const grassGeo = new THREE.PlaneGeometry(170, 170);
+    const grassMat = new THREE.MeshStandardMaterial({
+      color: 0x14532d,
+      roughness: 0.8,
+    });
     const grass = new THREE.Mesh(grassGeo, grassMat);
     grass.rotation.x = -Math.PI / 2;
     grass.position.y = 0.02;
@@ -37,196 +45,210 @@ export class World3D {
   }
 
   buildRoads() {
-    const roadMat = new THREE.MeshLambertMaterial({ color: 0x0f172a }); // dark asphalt
-    const lineMat = new THREE.MeshBasicMaterial({ color: 0xfacc15 }); // yellow dashed lines
+    const roadMat = new THREE.MeshStandardMaterial({
+      color: 0x090d16,
+      roughness: 0.7,
+      metalness: 0.1,
+    });
+    const lineMat = new THREE.MeshBasicMaterial({ color: 0xfacc15 });
 
-    // Main East-West Boulevard (Olofa Way)
-    const ewRoadGeo = new THREE.PlaneGeometry(160, 12);
-    const ewRoad = new THREE.Mesh(ewRoadGeo, roadMat);
-    ewRoad.rotation.x = -Math.PI / 2;
-    ewRoad.position.set(0, 0.05, 0);
-    ewRoad.receiveShadow = true;
-    this.scene.add(ewRoad);
+    // Main 4-Lane Olofa Way Expressway
+    const mainRoadGeo = new THREE.PlaneGeometry(180, 16);
+    const mainRoad = new THREE.Mesh(mainRoadGeo, roadMat);
+    mainRoad.rotation.x = -Math.PI / 2;
+    mainRoad.position.set(0, 0.05, 0);
+    mainRoad.receiveShadow = true;
+    this.scene.add(mainRoad);
 
-    // North-South Avenue (Palace & FedPoly Corridor)
-    const nsRoadGeo = new THREE.PlaneGeometry(12, 160);
-    const nsRoad = new THREE.Mesh(nsRoadGeo, roadMat);
-    nsRoad.rotation.x = -Math.PI / 2;
-    nsRoad.position.set(0, 0.05, 0);
-    nsRoad.receiveShadow = true;
-    this.scene.add(nsRoad);
+    // Palace & Adeleke Avenue
+    const aveGeo = new THREE.PlaneGeometry(16, 180);
+    const ave = new THREE.Mesh(aveGeo, roadMat);
+    ave.rotation.x = -Math.PI / 2;
+    ave.position.set(0, 0.05, 0);
+    ave.receiveShadow = true;
+    this.scene.add(ave);
 
-    // Secondary Roads
-    const secRoadGeo = new THREE.PlaneGeometry(160, 8);
-    const northSec = new THREE.Mesh(secRoadGeo, roadMat);
-    northSec.rotation.x = -Math.PI / 2;
-    northSec.position.set(0, 0.05, 45);
-    northSec.receiveShadow = true;
-    this.scene.add(northSec);
-
-    const southSec = new THREE.Mesh(secRoadGeo, roadMat);
-    southSec.rotation.x = -Math.PI / 2;
-    southSec.position.set(0, 0.05, -45);
-    southSec.receiveShadow = true;
-    this.scene.add(southSec);
-
-    // Road dashed markings
-    for (let x = -75; x < 75; x += 6) {
-      const dashGeo = new THREE.PlaneGeometry(3, 0.3);
+    // Road dashed stripes
+    for (let x = -85; x < 85; x += 6) {
+      const dashGeo = new THREE.PlaneGeometry(3, 0.4);
       const dash = new THREE.Mesh(dashGeo, lineMat);
       dash.rotation.x = -Math.PI / 2;
       dash.position.set(x, 0.06, 0);
       this.scene.add(dash);
     }
-
-    for (let z = -75; z < 75; z += 6) {
-      const dashGeo = new THREE.PlaneGeometry(0.3, 3);
-      const dash = new THREE.Mesh(dashGeo, lineMat);
-      dash.rotation.x = -Math.PI / 2;
-      dash.position.set(0, 0.06, z);
-      this.scene.add(dash);
-    }
-
-    // Railway tracks
-    const railMat = new THREE.MeshLambertMaterial({ color: 0x94a3b8 });
-    const railTieMat = new THREE.MeshLambertMaterial({ color: 0x78350f });
-
-    for (let x = -60; x < -10; x += 1.8) {
-      const tieGeo = new THREE.BoxGeometry(0.8, 0.15, 3.2);
-      const tie = new THREE.Mesh(tieGeo, railTieMat);
-      tie.position.set(x, 0.1, -55);
-      tie.receiveShadow = true;
-      this.scene.add(tie);
-    }
-    const rail1 = new THREE.Mesh(new THREE.BoxGeometry(50, 0.2, 0.15), railMat);
-    rail1.position.set(-35, 0.2, -54);
-    const rail2 = new THREE.Mesh(new THREE.BoxGeometry(50, 0.2, 0.15), railMat);
-    rail2.position.set(-35, 0.2, -56);
-    this.scene.add(rail1, rail2);
   }
 
   buildBuildings() {
-    // 1. Ààfin Ọlọ́fà (The Royal Palace) - Center North
-    this.createPalace(0, 48);
+    // 1. Ààfin Ọlọ́fà (Palace of the Olofa)
+    this.createPalace(0, 52);
 
-    // 2. Ọjà Òwódé (Owode Market) - West
-    this.createMarket(-35, 20);
+    // 2. Ọjà Òwódé (Owode Central Market)
+    this.createMarket(-38, 22);
 
-    // 3. Pápá Ìjàkadì (Wrestling Arena) - Center South
-    this.createIjakadiArena(0, -22);
+    // 3. Pápá Ìjàkadì (Wrestling Combat Sand Arena)
+    this.createCombatArena(0, -25);
 
-    // 4. FedPoly Offa (Mini Campus) - East
-    this.createFedPoly(35, 20);
+    // 4. FedPoly Offa (Tech & Engineering Campus)
+    this.createFedPoly(40, 22);
 
-    // 5. Historic Offa Railway Station (NRC) - Southwest
-    this.createRailwayStation(-38, -50);
+    // 5. Historic Offa Railway Station
+    this.createRailwayStation(-42, -50);
 
-    // 6. Your House (Popo Quarters) - Southeast
-    this.createPlayerHome(25, -28);
+    // 6. Popo Quarters (Player Residence & Armoury)
+    this.createArmouryHome(28, -30);
 
-    // 7. Avalon Hotel & Executive Lounge - Northeast
-    this.createAvalonHotel(35, 48);
+    // 7. Ojoku Road Farmlands
+    this.createFarmland(-45, 52);
+  }
 
-    // 8. Ojoku Road Sweet Potato Farmland - Northwest
-    this.createFarmland(-40, 48);
+  // AVALON NIGHTCLUB & VIP LOUNGE (The Clubbing Experience!)
+  buildNightclub() {
+    const clubX = 42;
+    const clubZ = 52;
+    const group = new THREE.Group();
+    group.position.set(clubX, 0, clubZ);
+
+    // Modern Nightclub Exterior (Black Obsidian & Neon Trims)
+    const clubBldg = new THREE.Mesh(
+      new THREE.BoxGeometry(20, 10, 16),
+      new THREE.MeshStandardMaterial({ color: 0x090d16, roughness: 0.3, metalness: 0.8 })
+    );
+    clubBldg.position.y = 5;
+    group.add(clubBldg);
+
+    // Neon Roof Sign "AVALON NIGHTCLUB & LOUNGE"
+    const signGeo = new THREE.BoxGeometry(14, 2, 0.8);
+    const signMat = new THREE.MeshBasicMaterial({ color: 0xec4899 });
+    const sign = new THREE.Mesh(signGeo, signMat);
+    sign.position.set(0, 11, 7.8);
+    group.add(sign);
+
+    // Outdoor / Indoor VIP Dance Floor (Illuminated Checkered LED Tiles)
+    const tileColors = [0xec4899, 0x06b6d4, 0xa855f7, 0xfacc15];
+    for (let r = -2; r <= 2; r++) {
+      for (let c = -2; c <= 2; c++) {
+        const tile = new THREE.Mesh(
+          new THREE.PlaneGeometry(2.2, 2.2),
+          new THREE.MeshBasicMaterial({ color: tileColors[Math.abs(r + c) % tileColors.length] })
+        );
+        tile.rotation.x = -Math.PI / 2;
+        tile.position.set(c * 2.4, 0.1, r * 2.4 + 12);
+        group.add(tile);
+        this.discoTiles.push(tile);
+      }
+    }
+
+    // DJ Booth & Turntable
+    const djBooth = new THREE.Mesh(
+      new THREE.BoxGeometry(4.5, 2, 1.5),
+      new THREE.MeshStandardMaterial({ color: 0x1f2937, metalness: 0.7 })
+    );
+    djBooth.position.set(0, 1, 18);
+    group.add(djBooth);
+
+    // Subwoofer Speaker Towers
+    const speakerMat = new THREE.MeshStandardMaterial({ color: 0x111827 });
+    const leftSpeaker = new THREE.Mesh(new THREE.BoxGeometry(1.5, 4.5, 1.5), speakerMat);
+    leftSpeaker.position.set(-3.5, 2.25, 18);
+    const rightSpeaker = new THREE.Mesh(new THREE.BoxGeometry(1.5, 4.5, 1.5), speakerMat);
+    rightSpeaker.position.set(3.5, 2.25, 18);
+    group.add(leftSpeaker, rightSpeaker);
+
+    // Dynamic Sweeping Spotlights
+    const spotPink = new THREE.SpotLight(0xec4899, 5, 25, Math.PI / 6, 0.5);
+    spotPink.position.set(clubX - 5, 8, clubZ + 8);
+    spotPink.target = group;
+    this.scene.add(spotPink);
+    this.spotlights.push(spotPink);
+
+    const spotCyan = new THREE.SpotLight(0x06b6d4, 5, 25, Math.PI / 6, 0.5);
+    spotCyan.position.set(clubX + 5, 8, clubZ + 8);
+    spotCyan.target = group;
+    this.scene.add(spotCyan);
+    this.spotlights.push(spotCyan);
+
+    this.scene.add(group);
+    this.registerInteractiveZone('avalon-hotel', 'Avalon Nightclub & VIP Lounge', clubX, clubZ + 12, 'Party, Drink & Dance');
+  }
+
+  createCombatArena(x, z) {
+    const group = new THREE.Group();
+    group.position.set(x, 0, z);
+
+    // Sand Combat Ring
+    const sand = new THREE.Mesh(
+      new THREE.CylinderGeometry(8, 8, 0.3, 24),
+      new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.9 })
+    );
+    sand.position.y = 0.15;
+    sand.receiveShadow = true;
+    group.add(sand);
+
+    // Combat Arena Barrier with Spotlights
+    const postMat = new THREE.MeshStandardMaterial({ color: 0x451a03, roughness: 0.6 });
+    for (let a = 0; a < Math.PI * 2; a += Math.PI / 6) {
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.3, 1.6, 0.3), postMat);
+      post.position.set(Math.cos(a) * 8.4, 0.8, Math.sin(a) * 8.4);
+      group.add(post);
+    }
+
+    this.scene.add(group);
+    this.registerInteractiveZone('ijakadi-arena', 'Ijakadi Combat Ring', x, z + 7, 'Engage in 3D Fight');
   }
 
   createPalace(x, z) {
     const group = new THREE.Group();
     group.position.set(x, 0, z);
 
-    // Palace Main Hall
-    const mainGeo = new THREE.BoxGeometry(18, 8, 12);
-    const palMat = new THREE.MeshLambertMaterial({ color: 0xd97706 });
-    const palace = new THREE.Mesh(mainGeo, palMat);
-    palace.position.y = 4;
+    const palace = new THREE.Mesh(
+      new THREE.BoxGeometry(22, 10, 14),
+      new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.4 })
+    );
+    palace.position.y = 5;
     palace.castShadow = true;
-    palace.receiveShadow = true;
     group.add(palace);
 
-    // Royal Traditional Roof (Golden Terracotta)
-    const roofGeo = new THREE.ConeGeometry(14, 5, 4);
-    const roofMat = new THREE.MeshLambertMaterial({ color: 0xb45309 });
-    const roof = new THREE.Mesh(roofGeo, roofMat);
-    roof.position.y = 10.5;
+    const roof = new THREE.Mesh(
+      new THREE.ConeGeometry(16, 6, 4),
+      new THREE.MeshStandardMaterial({ color: 0x92400e })
+    );
+    roof.position.y = 13;
     roof.rotation.y = Math.PI / 4;
     group.add(roof);
 
-    // Pillars / Arches
-    const colMat = new THREE.MeshLambertMaterial({ color: 0xfef08a });
-    [-6, -2, 2, 6].forEach((cx) => {
-      const col = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.5, 7, 8), colMat);
-      col.position.set(cx, 3.5, 6.2);
-      col.castShadow = true;
-      group.add(col);
-    });
-
-    // Royal Courtyard Arch & Gate
-    const archMat = new THREE.MeshLambertMaterial({ color: 0x92400e });
-    const archTop = new THREE.Mesh(new THREE.BoxGeometry(8, 1.2, 1.2), archMat);
-    archTop.position.set(0, 5, 10);
-    group.add(archTop);
-
     this.scene.add(group);
-    this.registerInteractiveZone('olofa-palace', 'Ààfin Ọlọ́fà (Palace)', x, z - 8, 'Greet Olofa & Homage');
+    this.registerInteractiveZone('olofa-palace', 'Ààfin Ọlọ́fà (The Royal Palace)', x, z - 8, 'Greet Olofa & Homage');
   }
 
   createMarket(x, z) {
     const group = new THREE.Group();
     group.position.set(x, 0, z);
 
-    // Market Plaza Ground
     const plaza = new THREE.Mesh(
-      new THREE.PlaneGeometry(24, 20),
-      new THREE.MeshLambertMaterial({ color: 0x92400e }) // dirt / laterite
+      new THREE.PlaneGeometry(26, 22),
+      new THREE.MeshStandardMaterial({ color: 0x78350f })
     );
     plaza.rotation.x = -Math.PI / 2;
     plaza.position.y = 0.04;
     group.add(plaza);
 
-    // Colorful Canopy Stalls
-    const umbrellaColors = [0xef4444, 0x10b981, 0x3b82f6, 0xf59e0b];
-    for (let row = -1; row <= 1; row++) {
-      for (let col = -1; col <= 1; col++) {
-        const uGroup = new THREE.Group();
-        uGroup.position.set(col * 7, 0, row * 6);
-
-        // Stall table
-        const table = new THREE.Mesh(
-          new THREE.BoxGeometry(3.5, 1, 2),
-          new THREE.MeshLambertMaterial({ color: 0x78350f })
+    // Stalls & Canopies
+    const colors = [0xef4444, 0x10b981, 0x3b82f6, 0xf59e0b];
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        const stall = new THREE.Mesh(
+          new THREE.BoxGeometry(4, 1.2, 2.4),
+          new THREE.MeshStandardMaterial({ color: 0x451a03 })
         );
-        table.position.y = 0.5;
-        uGroup.add(table);
+        stall.position.set(i * 8, 0.6, j * 6);
+        group.add(stall);
 
-        // Produce: Heaps of Sweet Potatoes (Orange / Yellow)
-        const anamoGeo = new THREE.SphereGeometry(0.3, 6, 6);
-        const anamoMat = new THREE.MeshLambertMaterial({ color: 0xd97706 });
-        for (let p = 0; p < 6; p++) {
-          const anamo = new THREE.Mesh(anamoGeo, anamoMat);
-          anamo.scale.set(1.4, 0.8, 0.8);
-          anamo.position.set((Math.random() - 0.5) * 2, 1.15, (Math.random() - 0.5) * 1.2);
-          uGroup.add(anamo);
-        }
-
-        // Canopy Pole
-        const pole = new THREE.Mesh(
-          new THREE.CylinderGeometry(0.08, 0.08, 3.5),
-          new THREE.MeshLambertMaterial({ color: 0x64748b })
-        );
-        pole.position.y = 1.75;
-        uGroup.add(pole);
-
-        // Canopy Cone
-        const colr = umbrellaColors[(Math.abs(row * 2 + col)) % umbrellaColors.length];
         const canopy = new THREE.Mesh(
-          new THREE.ConeGeometry(2.5, 1.2, 8),
-          new THREE.MeshLambertMaterial({ color: colr })
+          new THREE.ConeGeometry(3, 1.4, 6),
+          new THREE.MeshStandardMaterial({ color: colors[Math.abs(i * 2 + j) % colors.length] })
         );
-        canopy.position.y = 3.6;
-        uGroup.add(canopy);
-
-        group.add(uGroup);
+        canopy.position.set(i * 8, 3.8, j * 6);
+        group.add(canopy);
       }
     }
 
@@ -234,296 +256,240 @@ export class World3D {
     this.registerInteractiveZone('owode-market', 'Ọjà Òwódé (Owode Market)', x, z + 8, 'Haggle & Buy Goods');
   }
 
-  createIjakadiArena(x, z) {
-    const group = new THREE.Group();
-    group.position.set(x, 0, z);
-
-    // Circular Sand Ring
-    const sandGeo = new THREE.CylinderGeometry(7, 7, 0.25, 24);
-    const sandMat = new THREE.MeshLambertMaterial({ color: 0xd97706 }); // Sand / laterite ring
-    const sand = new THREE.Mesh(sandGeo, sandMat);
-    sand.position.y = 0.12;
-    sand.receiveShadow = true;
-    group.add(sand);
-
-    // Wooden Perimeter Barrier
-    const fenceMat = new THREE.MeshLambertMaterial({ color: 0x78350f });
-    for (let a = 0; a < Math.PI * 2; a += Math.PI / 8) {
-      const post = new THREE.Mesh(new THREE.BoxGeometry(0.3, 1.2, 0.3), fenceMat);
-      post.position.set(Math.cos(a) * 7.5, 0.6, Math.sin(a) * 7.5);
-      group.add(post);
-    }
-
-    // Spectator Benches
-    for (let a = -Math.PI / 1.5; a <= Math.PI / 1.5; a += Math.PI / 4) {
-      const bench = new THREE.Mesh(new THREE.BoxGeometry(3, 0.8, 0.8), fenceMat);
-      bench.position.set(Math.cos(a) * 10, 0.4, Math.sin(a) * 10);
-      bench.rotation.y = -a + Math.PI / 2;
-      group.add(bench);
-    }
-
-    this.scene.add(group);
-    this.registerInteractiveZone('ijakadi-arena', 'Pápá Ìjàkadì (Arena)', x, z + 6, 'Challenge Wrestler');
-  }
-
   createFedPoly(x, z) {
     const group = new THREE.Group();
     group.position.set(x, 0, z);
 
-    // Academic Tower
-    const bldg = new THREE.Mesh(
-      new THREE.BoxGeometry(16, 10, 10),
-      new THREE.MeshLambertMaterial({ color: 0x1e3a8a })
+    const tower = new THREE.Mesh(
+      new THREE.BoxGeometry(18, 12, 12),
+      new THREE.MeshStandardMaterial({ color: 0x1e3a8a, roughness: 0.3 })
     );
-    bldg.position.y = 5;
-    bldg.castShadow = true;
-    group.add(bldg);
-
-    // Entrance Glass
-    const glass = new THREE.Mesh(
-      new THREE.BoxGeometry(6, 4, 0.5),
-      new THREE.MeshLambertMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.8 })
-    );
-    glass.position.set(0, 2.5, 5.2);
-    group.add(glass);
-
-    // Clock tower on top
-    const clock = new THREE.Mesh(
-      new THREE.BoxGeometry(3, 4, 3),
-      new THREE.MeshLambertMaterial({ color: 0x1d4ed8 })
-    );
-    clock.position.y = 12;
-    group.add(clock);
+    tower.position.y = 6;
+    group.add(tower);
 
     this.scene.add(group);
-    this.registerInteractiveZone('fedpoly-mini', 'FedPoly Offa Campus', x, z - 8, 'Attend Lecture & Tech');
+    this.registerInteractiveZone('fedpoly-mini', 'FedPoly Offa Campus', x, z - 8, 'Tech Bootcamp & Study');
   }
 
   createRailwayStation(x, z) {
     const group = new THREE.Group();
     group.position.set(x, 0, z);
 
-    // Station House
     const depot = new THREE.Mesh(
-      new THREE.BoxGeometry(14, 5, 6),
-      new THREE.MeshLambertMaterial({ color: 0x991b1b }) // red brick
+      new THREE.BoxGeometry(16, 6, 8),
+      new THREE.MeshStandardMaterial({ color: 0x991b1b })
     );
-    depot.position.y = 2.5;
+    depot.position.y = 3;
     group.add(depot);
 
-    // Station Roof
-    const roof = new THREE.Mesh(
-      new THREE.ConeGeometry(9, 2.5, 4),
-      new THREE.MeshLambertMaterial({ color: 0x334155 })
-    );
-    roof.position.y = 6;
-    roof.rotation.y = Math.PI / 4;
-    group.add(roof);
-
     this.scene.add(group);
-    this.registerInteractiveZone('offa-railway', 'Historic Railway Station', x, z + 6, 'Train & Cargo Hustle');
+    this.registerInteractiveZone('offa-railway', 'Historic Railway Station', x, z + 6, 'Cargo Logistics');
   }
 
-  createPlayerHome(x, z) {
+  createArmouryHome(x, z) {
     const group = new THREE.Group();
     group.position.set(x, 0, z);
 
-    // House
     const house = new THREE.Mesh(
-      new THREE.BoxGeometry(8, 4.5, 8),
-      new THREE.MeshLambertMaterial({ color: 0x0f766e })
+      new THREE.BoxGeometry(9, 5, 9),
+      new THREE.MeshStandardMaterial({ color: 0x065f46 })
     );
-    house.position.y = 2.25;
-    house.castShadow = true;
+    house.position.y = 2.5;
     group.add(house);
 
-    // Slanted Roof
-    const roof = new THREE.Mesh(
-      new THREE.ConeGeometry(6.5, 2.5, 4),
-      new THREE.MeshLambertMaterial({ color: 0xb45309 })
-    );
-    roof.position.y = 5.5;
-    roof.rotation.y = Math.PI / 4;
-    group.add(roof);
-
-    // Tiger Generator Humming Outside
-    const gen = new THREE.Mesh(
-      new THREE.BoxGeometry(0.8, 0.7, 0.6),
-      new THREE.MeshLambertMaterial({ color: 0xf59e0b })
-    );
-    gen.position.set(4.6, 0.35, 2);
-    group.add(gen);
-
     this.scene.add(group);
-    this.registerInteractiveZone('residential-quarters', 'Your Home (Popo)', x, z + 6, 'Sleep & Manage Home');
-  }
-
-  createAvalonHotel(x, z) {
-    const group = new THREE.Group();
-    group.position.set(x, 0, z);
-
-    // Luxury Hotel Building
-    const hotel = new THREE.Mesh(
-      new THREE.BoxGeometry(16, 9, 10),
-      new THREE.MeshLambertMaterial({ color: 0x581c87 })
-    );
-    hotel.position.y = 4.5;
-    group.add(hotel);
-
-    // Swimming Pool
-    const pool = new THREE.Mesh(
-      new THREE.BoxGeometry(10, 0.4, 6),
-      new THREE.MeshLambertMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.85 })
-    );
-    pool.position.set(0, 0.2, 9);
-    group.add(pool);
-
-    this.scene.add(group);
-    this.registerInteractiveZone('avalon-hotel', 'Avalon Hotel & Lounge', x, z - 8, 'Swim & VIP Dine');
+    this.registerInteractiveZone('residential-quarters', 'Your Residence & Safehouse', x, z + 6, 'Rest & Gear Up');
   }
 
   createFarmland(x, z) {
     const group = new THREE.Group();
     group.position.set(x, 0, z);
 
-    // Soil Bed
-    const soil = new THREE.Mesh(
-      new THREE.BoxGeometry(18, 0.3, 14),
-      new THREE.MeshLambertMaterial({ color: 0x365314 })
+    const field = new THREE.Mesh(
+      new THREE.BoxGeometry(20, 0.3, 16),
+      new THREE.MeshStandardMaterial({ color: 0x365314 })
     );
-    soil.position.y = 0.15;
-    group.add(soil);
-
-    // Ridges & Sweet Potato Foliage
-    for (let rz = -5; rz <= 5; rz += 2.5) {
-      const ridge = new THREE.Mesh(
-        new THREE.BoxGeometry(16, 0.4, 1.2),
-        new THREE.MeshLambertMaterial({ color: 0x4d7c0f })
-      );
-      ridge.position.set(0, 0.35, rz);
-      group.add(ridge);
-
-      // Sweet Potato Green Leaves & Golden Tubers peeking
-      for (let rx = -6; rx <= 6; rx += 2) {
-        const plant = new THREE.Mesh(
-          new THREE.DodecahedronGeometry(0.35),
-          new THREE.MeshLambertMaterial({ color: 0x84cc16 })
-        );
-        plant.position.set(rx, 0.7, rz);
-        group.add(plant);
-      }
-    }
+    field.position.y = 0.15;
+    group.add(field);
 
     this.scene.add(group);
-    this.registerInteractiveZone('anamo-farms', 'Anamọ Farmlands', x, z - 8, 'Harvest Sweet Potatoes');
+    this.registerInteractiveZone('anamo-farms', 'Anamọ Sweet Potato Plantation', x, z - 8, 'Harvest Sweet Potatoes');
   }
 
   buildFlora() {
-    // Palm trees and neem trees dotted around Offa
-    const treeCoords = [
-      [-15, 15], [15, 15], [-15, -15], [15, -15],
-      [-55, 30], [-55, -30], [55, 30], [55, -30],
-      [10, 35], [-10, 35], [20, -50], [-20, -50]
-    ];
-
-    const trunkMat = new THREE.MeshLambertMaterial({ color: 0x78350f });
-    const foliageMat = new THREE.MeshLambertMaterial({ color: 0x166534 });
-
-    treeCoords.forEach(([tx, tz]) => {
-      const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.4, 4, 8), trunkMat);
-      trunk.position.set(tx, 2, tz);
-      trunk.castShadow = true;
+    const spots = [[-18, 18], [18, 18], [-18, -18], [18, -18], [-60, 25], [60, 25]];
+    spots.forEach(([tx, tz]) => {
+      const trunk = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.35, 0.45, 5, 8),
+        new THREE.MeshStandardMaterial({ color: 0x78350f })
+      );
+      trunk.position.set(tx, 2.5, tz);
       this.scene.add(trunk);
 
-      const leaves = new THREE.Mesh(new THREE.ConeGeometry(2.2, 4, 8), foliageMat);
-      leaves.position.set(tx, 5, tz);
-      leaves.castShadow = true;
-      this.scene.add(leaves);
+      const top = new THREE.Mesh(
+        new THREE.DodecahedronGeometry(2.6),
+        new THREE.MeshStandardMaterial({ color: 0x15803d })
+      );
+      top.position.set(tx, 6, tz);
+      this.scene.add(top);
     });
   }
 
-  spawnNPCs() {
-    // 3D Living Human NPCs walking the streets
-    const npcDefs = [
-      { name: 'Mama Risi', color: 0xf59e0b, capColor: 0xec4899, x: -30, z: 12, targetX: -20, targetZ: 12 },
-      { name: 'FedPoly Scholar', color: 0x3b82f6, capColor: 0x1e3a8a, x: 25, z: 12, targetX: 35, targetZ: 12 },
-      { name: 'Palace Guard', color: 0x991b1b, capColor: 0xfacc15, x: 4, z: 40, targetX: -4, targetZ: 40 },
-      { name: 'Ijakadi Novice', color: 0xef4444, capColor: 0x000000, x: -6, z: -20, targetX: 6, targetZ: -20 },
-      { name: 'Owambe Guest', color: 0x8b5cf6, capColor: 0xfbbf24, x: 18, z: -15, targetX: 18, targetZ: -25 }
+  // Spawn Free Fire / CoD Style NPCs and Combat Brawlers
+  spawnNPCsAndEnemies() {
+    // 1. Street Combat Enemies (You can attack and fight them in 3D!)
+    const enemyDefs = [
+      { name: 'Razor (Adeleke Brawler)', x: -6, z: -25, hp: 100, maxHp: 100, color: 0xdc2626 },
+      { name: 'Titan (Popo Heavyweight)', x: 6, z: -25, hp: 140, maxHp: 140, color: 0x991b1b },
     ];
 
-    npcDefs.forEach((def) => {
-      const npc = new Character3D({
-        color: def.color,
-        capColor: def.capColor,
+    enemyDefs.forEach((def) => {
+      const enemyChar = new Character3D({
+        shirtColor: def.color,
+        vestColor: 0x1f2937,
+        pantsColor: 0x111827,
+        bootsColor: 0x000000,
+        camoAccent: 0xef4444,
+        name: def.name,
         isNPC: true,
-        name: def.name
       });
-      npc.group.position.set(def.x, 0, def.z);
-      this.scene.add(npc.group);
+      enemyChar.group.position.set(def.x, 0, def.z);
+      this.scene.add(enemyChar.group);
 
-      this.npcs.push({
-        character: npc,
+      // 3D Floating Health Bar over Enemy Head
+      const hpBg = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.6, 0.22),
+        new THREE.MeshBasicMaterial({ color: 0x111827 })
+      );
+      hpBg.position.set(0, 2.5, 0);
+
+      const hpBar = new THREE.Mesh(
+        new THREE.PlaneGeometry(1.5, 0.16),
+        new THREE.MeshBasicMaterial({ color: 0xef4444 })
+      );
+      hpBar.position.set(0, 2.5, 0.01);
+      enemyChar.group.add(hpBg, hpBar);
+
+      this.enemies.push({
+        character: enemyChar,
         x: def.x,
         z: def.z,
-        originX: def.x,
-        originZ: def.z,
-        targetX: def.targetX,
-        targetZ: def.targetZ,
-        speed: 1.8 + Math.random() * 0.8
+        hp: def.hp,
+        maxHp: def.maxHp,
+        hpBar,
+        name: def.name,
+        staggerTimer: 0,
       });
     });
+
+    // 2. Club Dancers & Town Citizens
+    const clubDancers = [
+      { name: 'DJ Tunez', x: 42, z: 66, color: 0x8b5cf6 },
+      { name: 'Club VIP Bella', x: 40, z: 63, color: 0xec4899 },
+      { name: 'Hype Man Sisi', x: 44, z: 64, color: 0x06b6d4 },
+    ];
+
+    clubDancers.forEach((dancer) => {
+      const char = new Character3D({
+        shirtColor: dancer.color,
+        vestColor: 0x374151,
+        pantsColor: 0x111827,
+        name: dancer.name,
+        isNPC: true,
+      });
+      char.group.position.set(dancer.x, 0, dancer.z);
+      char.setAnimation('club_dance');
+      this.scene.add(char.group);
+      this.npcs.push({ character: char, x: dancer.x, z: dancer.z, anim: 'club_dance' });
+    });
+  }
+
+  spawnVehicles() {
+    // 3D Bajaj Okada Motorcycle
+    const okadaGroup = new THREE.Group();
+    okadaGroup.position.set(5, 0.35, 3);
+    const okadaBody = new THREE.Mesh(
+      new THREE.BoxGeometry(2.2, 0.9, 0.7),
+      new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.6 })
+    );
+    const wheelMat = new THREE.MeshStandardMaterial({ color: 0x090d16 });
+    const wheel1 = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.35, 0.2, 12), wheelMat);
+    wheel1.rotation.z = Math.PI / 2;
+    wheel1.position.set(-0.8, -0.3, 0);
+    const wheel2 = wheel1.clone();
+    wheel2.position.set(0.8, -0.3, 0);
+    okadaGroup.add(okadaBody, wheel1, wheel2);
+    this.scene.add(okadaGroup);
+
+    // 3D TVS Keke Tricycle
+    const kekeGroup = new THREE.Group();
+    kekeGroup.position.set(-6, 0.65, 3);
+    const kekeCabin = new THREE.Mesh(
+      new THREE.BoxGeometry(2.8, 1.6, 1.4),
+      new THREE.MeshStandardMaterial({ color: 0x10b981, roughness: 0.3 })
+    );
+    kekeCabin.position.y = 0.4;
+    kekeGroup.add(kekeCabin);
+    this.scene.add(kekeGroup);
   }
 
   registerInteractiveZone(id, name, x, z, actionHint) {
     this.interactiveZones.push({ id, name, x, z, actionHint });
 
-    // Floating 3D Landmark Beacon Marker
-    const markerGeo = new THREE.ConeGeometry(0.6, 1.2, 4);
-    const markerMat = new THREE.MeshBasicMaterial({ color: 0x34d399 });
-    const marker = new THREE.Mesh(markerGeo, markerMat);
-    marker.rotation.x = Math.PI; // point down
-    marker.position.set(x, 4.5, z);
+    const marker = new THREE.Mesh(
+      new THREE.ConeGeometry(0.8, 1.5, 4),
+      new THREE.MeshBasicMaterial({ color: 0x10b981 })
+    );
+    marker.rotation.x = Math.PI;
+    marker.position.set(x, 5.5, z);
     this.scene.add(marker);
     this.buildings.push({ marker, x, z });
   }
 
   update(dt) {
-    // Animate NPCs walking between waypoints
-    this.npcs.forEach((npcObj) => {
-      const dx = npcObj.targetX - npcObj.x;
-      const dz = npcObj.targetZ - npcObj.z;
-      const dist = Math.hypot(dx, dz);
+    const time = performance.now() * 0.003;
 
-      if (dist > 0.5) {
-        const step = npcObj.speed * dt;
-        npcObj.x += (dx / dist) * step;
-        npcObj.z += (dz / dist) * step;
-        npcObj.character.group.position.set(npcObj.x, 0, npcObj.z);
-        npcObj.character.group.rotation.y = Math.atan2(dx, dz);
-        npcObj.character.update(dt, true, 0.8);
+    // Pulse Disco Floor in Club
+    this.discoTiles.forEach((tile, idx) => {
+      if (Math.sin(time * 3 + idx) > 0.5) {
+        tile.material.color.setHex(0xec4899);
+      } else if (Math.sin(time * 3 + idx) > 0) {
+        tile.material.color.setHex(0x06b6d4);
       } else {
-        // Reverse direction
-        const tmpX = npcObj.targetX;
-        const tmpZ = npcObj.targetZ;
-        npcObj.targetX = npcObj.originX;
-        npcObj.targetZ = npcObj.originZ;
-        npcObj.originX = tmpX;
-        npcObj.originZ = tmpZ;
+        tile.material.color.setHex(0xfacc15);
       }
     });
 
-    // Bob floating landmark markers
-    const time = performance.now() * 0.003;
+    // Sweep Spotlights across dancefloor
+    this.spotlights.forEach((spot, idx) => {
+      spot.position.x += Math.sin(time * 2 + idx) * 0.05;
+      spot.position.z += Math.cos(time * 2 + idx) * 0.05;
+    });
+
+    // Update NPC dancers
+    this.npcs.forEach((npc) => {
+      npc.character.update(dt, false);
+    });
+
+    // Update Combat Enemies
+    this.enemies.forEach((enemy) => {
+      if (enemy.hp > 0) {
+        enemy.character.update(dt, false);
+        // Face player if close
+        enemy.hpBar.scale.x = Math.max(0.01, enemy.hp / enemy.maxHp);
+      }
+    });
+
+    // Bob Markers
     this.buildings.forEach((b) => {
       if (b.marker) {
-        b.marker.position.y = 4.5 + Math.sin(time) * 0.3;
-        b.marker.rotation.y += dt * 1.5;
+        b.marker.position.y = 5.5 + Math.sin(time) * 0.35;
+        b.marker.rotation.y += dt * 2.0;
       }
     });
   }
 
-  getClosestZone(playerX, playerZ, threshold = 7.0) {
+  getClosestZone(playerX, playerZ, threshold = 8.0) {
     let closest = null;
     let minD = threshold;
     this.interactiveZones.forEach((zone) => {
@@ -534,5 +500,20 @@ export class World3D {
       }
     });
     return closest;
+  }
+
+  getClosestEnemy(playerX, playerZ, range = 3.5) {
+    let target = null;
+    let minD = range;
+    this.enemies.forEach((enemy) => {
+      if (enemy.hp > 0) {
+        const d = Math.hypot(playerX - enemy.x, playerZ - enemy.z);
+        if (d < minD) {
+          minD = d;
+          target = enemy;
+        }
+      }
+    });
+    return target;
   }
 }
